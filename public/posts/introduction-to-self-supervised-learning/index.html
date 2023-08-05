@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Introduction to Self Supervised Learning - Andrés Ponce</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/" title="Andrés Ponce" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">Andrés Ponce</div>
+					
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/posts/">
+				
+				<span class="menu__text">Posts</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+	<script type="text/x-mathjax-config">
+			MathJax.Hub.Config({
+				tex2jax: {
+					inlineMath: [['$', '$'], ['\\(', '\\)']]
+				}
+			});
+	</script>
+</header>
+
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Introduction to Self Supervised Learning</h1>
+			
+		</header>
+		<div class="content post__content clearfix">
+			<p>Self-supervised learning can sound like a real mouthful!
+My family and friends have asked me many times what it is I actually do for
+my master&rsquo;s degree, and I always struggled to come up with a simple answer;
+an answer that really captures the idea without getting too technical.</p>
+<p>In this post I would like to try to do just that.
+We&rsquo;ll start by defining what <em>supervised</em> learning is, since <em>self</em>-supervised
+learning tries to work around the main limitations of supervised learning.</p>
+<h2 id="machine-learning">Machine Learning</h2>
+<p>First, it would be beneficial to know what we <em>mean</em> when we say machines &ldquo;learn&rdquo;.
+What is being learned exactly?
+Machine learning is rooted in how humans learn, when we are given a new task, our first
+guesses might be wildly inaccurate, yet with feedback we can quite quickly learn patterns
+and approaches to a problem.</p>
+<p>For example, let&rsquo;s say we have two types of objects, blue and orange.
+They are mostly different, but like in the image below, there might be some overlapping regions.
+Could we find a line that best splits the two groups of dots, that has the fewest errors?
+An error would be an orange dot that is in the blue region, and vice-versa.
+If we are given a new dot, and we don&rsquo;t know if it&rsquo;s blue or orange, we want the highest chance of being correct.</p>
+<p>
+<figure>
+	<img src="/binary_classification.png" alt="Binary Classificaiton" style="max-width:480px;max-height:640px; text-align:center;">
+	<figcaption>Can we find a line that best separates blue and orange dots?</figcaption>
+</figure>
+
+</p>
+<p>If we are given an entirely different set of blue and orange dots, our line will look different, it will reflect
+the best solution to <em>that</em> set of blue and orange dots.
+The solution we find for this specific problem will work with similar blue and orange dots.
+So, we have to &ldquo;learn&rdquo;, or figure out by adjusting, the line that leads to the best result on our specific problem.
+To learn in this case would mean to try and approximate the answer given our input data.</p>
+<p>I mentioned &ldquo;adjusting&rdquo; to find an answer.
+We first start with a random line, and measure how many points it gets wrong.
+This first guess is probably pretty terrible, so we maybe tweak the slope, move it around, etc&hellip;
+Now, we might get fewer errors.
+How to adjust the line involves calculating some equations to figure out how wrong we are, but the main idea
+is that we can give ourselves an error, and we want the error to be as small as possible.</p>
+<h2 id="supervised-learning">Supervised Learning</h2>
+<p>You may have heard of computers &ldquo;learning&rdquo; how to recognize objects in images: tell cats apart from
+dogs or identify people in images.
+A more recent famous example of computers &ldquo;learning&rdquo; is <a href="https://openai.com/dall-e-2/">DALL$\cdot$E 2</a>, which can generate
+multiple high-resolution images from a single text prompt.</p>
+<p>
+<figure>
+	<img src="/dalle2_example.png" alt="AI generated images" style="max-width:480px;max-height:640px; text-align:center;">
+	<figcaption>A computer &#39;learned&#39; what this prompt might look like.</figcaption>
+</figure>
+
+</p>
+<p>There&rsquo;s many uses of machine learning, for this post we&rsquo;ll focus on <strong>image classification</strong>, or trying to classify
+the image depending what&rsquo;s in the image.</p>
+<p>A machine learning <strong>model</strong> is a program that takes some input, say an image, and makes a decision about that input (e.g. classification),
+similar to deciding if a dot is blue or orange in the example above.
+Our model first has to learn the ins and outs of the different types of data &ndash; what makes a dog a dog and a cat a cat?
+To learn these patterns, we have to show our model a lot of images and slightly tweak its &ldquo;settings&rdquo; every time, and through
+some math (back-propagation), the model produces better and better guesses.</p>
+<p>For example, our model predicts that an image has a cat.
+We check the model&rsquo;s predictions with the &ldquo;correct answer&rdquo; or label, and based on the correctness of our guess decide how we should
+adjust our model so it does better next time.
+We use an algorithm to decide how our model should tweak the settings used in making decisions (a.k.a. <strong>parameters</strong>) when comparing our
+model&rsquo;s output and the correct label.</p>
+<p>What&rsquo;s wrong with this approach then?
+Nothing inherently.
+However, notice that we mentioned the &ldquo;correct answer&rdquo;, which we use to measure how our model is performing and deterimine how to adjust our model&rsquo;s parameters.
+How do we get these?
+The data we use to train our model will usually come with a bunch of inputs and their labels already prepared.
+Preparing labels for a dataset is usually a manual process, involving many man hours, since a human has to go through
+all the data and give the correct answer for the computer to use.
+So some group will prepare a dataset, then many other people will use it to avoid the labelling costs.
+Nowadays, where bigger datasets are preferred, labelling is too expensive for many applications.</p>
+<h2 id="self-supervised-learning">Self-Supervised Learning</h2>
+<p><strong>Self-supervised learning</strong> tries to answer the question: <em>What if we could do the same things as in supervised learning
+without the labels?</em>
+However, instead of having the correct labels and comparing them to our model&rsquo;s guess, we have to come up with some
+other <strong>task</strong> for our model to use in training.
+Instead of comparing our model&rsquo;s output with the &ldquo;answer key&rdquo;, we can define some other
+metric, or other measures of how wrong our guesses are.</p>
+<p>
+<figure>
+	<img src="/simclr.png" alt="simclr" style="max-width:480px;max-height:640px; text-align:center;">
+	<figcaption>If we change the same image in different ways to create two versions of it, we could tell our model that they should still be quite similar because they contain the same object.</figcaption>
+</figure>
+
+
+There are plenty of other ways of training a model without relying on labels.
+A common approach is to take an image $x$, then produce two versions of the same image $\tilde{x}_i$
+and $\tilde{x}_j$.
+For example, we could alter the first image&rsquo;s colors and crop the second image, or rotate one image
+and blur the other image.
+The idea is to have our model process and view the two images as similar as possible; at the end of
+the day the <em>contents</em> of the image are the same, just presented in different ways.
+This way even if an image is distorted in different ways, our model can still learn what
+patterns make up a dog or cat, a blue dot and an orange dot.
+This is one way we can reduce or even remove the need for labels.</p>
+<p>That&rsquo;s the main essence of self-supervised learning.
+The practical use is when the data is too large or there are not enough resources to
+neatly label the data.</p>
+<p>More recent models, especially larger models like DALL$\cdot$E 2 above, use some form of
+self-supervision because of the sheer size of the data they use to train.
+Their model uses self-supervision to process the text prompt.
+During training, they will take a sentence and remove some of the words.
+The model is then asked to fill in the blank with the most likely word, taking in the
+context of the sentence.
+Self-supervision can be applied not only in vision, but also with text in different, but often
+similar ways.
+In recent years, self-supervised approaches have been proving their worth and sometimes surpassing
+supervised models in image classification, so the future for self-supervision is bright.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>In this post, I tried to introduce the idea of self-supervision as simply as I could.
+The field is currently seeing large adoption by major companies, the hope being that we can use
+ever larger models which require ever larger datasets without labelling costs.</p>
+
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/machine-learning/" rel="tag">machine learning</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/research/" rel="tag">research</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/self-supervised/" rel="tag">self-supervised</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/posts/how-to-learn-languages/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">How to Learn Languages</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2023 Andrés Ponce.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>
