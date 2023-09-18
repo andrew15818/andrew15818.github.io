@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-09-18T15:19:24+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Andres Ponce</title><subtitle>Honduran software engineer</subtitle><entry><title type="html">Welcome to Jekyll!</title><link href="http://localhost:4000/jekyll/update/2023/09/18/welcome-to-jekyll.html" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2023-09-18T14:18:53+00:00</published><updated>2023-09-18T14:18:53+00:00</updated><id>http://localhost:4000/jekyll/update/2023/09/18/welcome-to-jekyll</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2023/09/18/welcome-to-jekyll.html"><![CDATA[<p>You’ll find this post in your <code class="language-plaintext highlighter-rouge">_posts</code> directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run <code class="language-plaintext highlighter-rouge">jekyll serve</code>, which launches a web server and auto-regenerates your site when a file is updated.</p>
+
+<p>Jekyll requires blog post files to be named according to the following format:</p>
+
+<p><code class="language-plaintext highlighter-rouge">YEAR-MONTH-DAY-title.MARKUP</code></p>
+
+<p>Where <code class="language-plaintext highlighter-rouge">YEAR</code> is a four-digit number, <code class="language-plaintext highlighter-rouge">MONTH</code> and <code class="language-plaintext highlighter-rouge">DAY</code> are both two-digit numbers, and <code class="language-plaintext highlighter-rouge">MARKUP</code> is the file extension representing the format used in the file. After that, include the necessary front matter. Take a look at the source for this post to get an idea about how it works.</p>
+
+<p>Jekyll also offers powerful support for code snippets:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">print_hi</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+  <span class="nb">puts</span> <span class="s2">"Hi, </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">end</span>
+<span class="n">print_hi</span><span class="p">(</span><span class="s1">'Tom'</span><span class="p">)</span>
+<span class="c1">#=&gt; prints 'Hi, Tom' to STDOUT.</span></code></pre></figure>
+
+<p>Check out the <a href="https://jekyllrb.com/docs/home">Jekyll docs</a> for more info on how to get the most out of Jekyll. File all bugs/feature requests at <a href="https://github.com/jekyll/jekyll">Jekyll’s GitHub repo</a>. If you have questions, you can ask them on <a href="https://talk.jekyllrb.com/">Jekyll Talk</a>.</p>]]></content><author><name></name></author><category term="jekyll" /><category term="update" /><summary type="html"><![CDATA[You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.]]></summary></entry><entry><title type="html">Introduction to Self Supervised Learning</title><link href="http://localhost:4000/2022/09/01/Introduction-to-Self-supervised-Learning.html" rel="alternate" type="text/html" title="Introduction to Self Supervised Learning" /><published>2022-09-01T11:09:12+00:00</published><updated>2022-09-01T11:09:12+00:00</updated><id>http://localhost:4000/2022/09/01/Introduction-to-Self-supervised-Learning</id><content type="html" xml:base="http://localhost:4000/2022/09/01/Introduction-to-Self-supervised-Learning.html"><![CDATA[<p>Self-supervised learning can sound like a real mouthful!
+My family and friends have asked me many times what it is I actually do for 
+my master’s degree, and I always struggled to come up with a simple answer; 
+an answer that really captures the idea without getting too technical.</p>
+
+<p>In this post I would like to try to do just that.
+We’ll start by defining what <em>supervised</em> learning is, since <em>self</em>-supervised
+learning tries to work around the main limitations of supervised learning.</p>
+
+<h2 id="machine-learning">Machine Learning</h2>
+<p>First, it would be beneficial to know what we <em>mean</em> when we say machines “learn”.
+What is being learned exactly?
+Machine learning is rooted in how humans learn, when we are given a new task, our first
+guesses might be wildly inaccurate, yet with feedback we can quite quickly learn patterns
+and approaches to a problem.</p>
+
+<p>For example, let’s say we have two types of objects, blue and orange. 
+They are mostly different, but like in the image below, there might be some overlapping regions.
+Could we find a line that best splits the two groups of dots, that has the fewest errors?
+An error would be an orange dot that is in the blue region, and vice-versa.
+If we are given a new dot, and we don’t know if it’s blue or orange, we want the highest chance of being correct.</p>
+
+<p><img src="/assets/binary_classification.png" alt="Binary Classificaiton" title="Can we find a line that best separates blue and orange dots?" /></p>
+
+<p>If we are given an entirely different set of blue and orange dots, our line will look different, it will reflect 
+the best solution to <em>that</em> set of blue and orange dots.
+The solution we find for this specific problem will work with similar blue and orange dots.
+So, we have to “learn”, or figure out by adjusting, the line that leads to the best result on our specific problem.
+To learn in this case would mean to try and approximate the answer given our input data.</p>
+
+<p>I mentioned “adjusting” to find an answer.
+We first start with a random line, and measure how many points it gets wrong. 
+This first guess is probably pretty terrible, so we maybe tweak the slope, move it around, etc…
+Now, we might get fewer errors.
+How to adjust the line involves calculating some equations to figure out how wrong we are, but the main idea
+is that we can give ourselves an error, and we want the error to be as small as possible.</p>
+
+<h2 id="supervised-learning">Supervised Learning</h2>
+<p>You may have heard of computers “learning” how to recognize objects in images: tell cats apart from
+dogs or identify people in images.
+A more recent famous example of computers “learning” is <a href="https://openai.com/dall-e-2/">DALL$\cdot$E 2</a>, which can generate
+multiple high-resolution images from a single text prompt.</p>
+
+<p><img src="/assets/dalle2_example.png" alt="AI generated images" title="A computer 'learned' what this prompt might look like." /></p>
+
+<p>There’s many uses of machine learning, for this post we’ll focus on <strong>image classification</strong>, or trying to classify 
+the image depending what’s in the image.</p>
+
+<p>A machine learning <strong>model</strong> is a program that takes some input, say an image, and makes a decision about that input (e.g. classification), 
+similar to deciding if a dot is blue or orange in the example above.
+Our model first has to learn the ins and outs of the different types of data – what makes a dog a dog and a cat a cat?
+To learn these patterns, we have to show our model a lot of images and slightly tweak its “settings” every time, and through 
+some math (back-propagation), the model produces better and better guesses.</p>
+
+<p>For example, our model predicts that an image has a cat.
+We check the model’s predictions with the “correct answer” or label, and based on the correctness of our guess decide how we should
+adjust our model so it does better next time.
+We use an algorithm to decide how our model should tweak the settings used in making decisions (a.k.a. <strong>parameters</strong>) when comparing our
+model’s output and the correct label.</p>
+
+<p>What’s wrong with this approach then?
+Nothing inherently. 
+However, notice that we mentioned the “correct answer”, which we use to measure how our model is performing and deterimine how to adjust our model’s parameters.
+How do we get these? 
+The data we use to train our model will usually come with a bunch of inputs and their labels already prepared.
+Preparing labels for a dataset is usually a manual process, involving many man hours, since a human has to go through 
+all the data and give the correct answer for the computer to use.
+So some group will prepare a dataset, then many other people will use it to avoid the labelling costs.
+Nowadays, where bigger datasets are preferred, labelling is too expensive for many applications.</p>
+
+<h2 id="self-supervised-learning">Self-Supervised Learning</h2>
+<p><strong>Self-supervised learning</strong> tries to answer the question: <em>What if we could do the same things as in supervised learning
+without the labels?</em>
+However, instead of having the correct labels and comparing them to our model’s guess, we have to come up with some
+other <strong>task</strong> for our model to use in training.
+Instead of comparing our model’s output with the “answer key”, we can define some other
+metric, or other measures of how wrong our guesses are.</p>
+
+<p><img src="/assets/simclr.png" alt="simclr" title="If we change the same image in different ways to create two versions of it, we could tell our model that they should still be quite similar because they contain the same object." />
+There are plenty of other ways of training a model without relying on labels.
+A common approach is to take an image $x$, then produce two versions of the same image $\tilde{x}_i$
+and $\tilde{x}_j$.
+For example, we could alter the first image’s colors and crop the second image, or rotate one image
+and blur the other image.
+The idea is to have our model process and view the two images as similar as possible; at the end of 
+the day the <em>contents</em> of the image are the same, just presented in different ways.
+This way even if an image is distorted in different ways, our model can still learn what 
+patterns make up a dog or cat, a blue dot and an orange dot.
+This is one way we can reduce or even remove the need for labels.</p>
+
+<p>That’s the main essence of self-supervised learning.
+The practical use is when the data is too large or there are not enough resources to 
+neatly label the data.</p>
+
+<p>More recent models, especially larger models like DALL$\cdot$E 2 above, use some form of 
+self-supervision because of the sheer size of the data they use to train.
+Their model uses self-supervision to process the text prompt.
+During training, they will take a sentence and remove some of the words.
+The model is then asked to fill in the blank with the most likely word, taking in the
+context of the sentence.
+Self-supervision can be applied not only in vision, but also with text in different, but often
+similar ways.
+In recent years, self-supervised approaches have been proving their worth and sometimes surpassing
+supervised models in image classification, so the future for self-supervision is bright.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>In this post, I tried to introduce the idea of self-supervision as simply as I could.
+The field is currently seeing large adoption by major companies, the hope being that we can use
+ever larger models which require ever larger datasets without labelling costs.</p>]]></content><author><name></name></author><category term="machine_learning," /><category term="research," /><category term="self-supervised" /><summary type="html"><![CDATA[Self-supervised learning can sound like a real mouthful! My family and friends have asked me many times what it is I actually do for my master’s degree, and I always struggled to come up with a simple answer; an answer that really captures the idea without getting too technical.]]></summary></entry><entry><title type="html">How to Learn Languages</title><link href="http://localhost:4000/2022/08/08/how-to-learn-languages.html" rel="alternate" type="text/html" title="How to Learn Languages" /><published>2022-08-08T14:21:32+00:00</published><updated>2022-08-08T14:21:32+00:00</updated><id>http://localhost:4000/2022/08/08/how-to-learn-languages</id><content type="html" xml:base="http://localhost:4000/2022/08/08/how-to-learn-languages.html"><![CDATA[<p>It’s pretty crazy to think that when I landed in Taiwan I could not even say “thank you”,
+yet fast forward 6 years and I’m giving presentations in Chinese every week to my Taiwanese
+labmates.</p>
+
+<p>So how is this possible?</p>
+
+<p>I thought I would share a couple of tips I’ve learned and shed light on what I’ve gone through.</p>
+
+<p><img src="/assets/looking_at_statue_resized.jpeg" alt="It's an ongoing process." /></p>
+
+<h2 id="classes-should-not-be-the-primary-way-you-learn">Classes Should Not Be The Primary Way You Learn</h2>
+<p>In 2016-2017 I went to Chinese classes every day for 2-3 hours, after which I usually went to the library to work on homework or to learn some new characters.
+Since I was spending time on “learning” every day, quite a few hours in fact, I thought this would be fine.
+However, while I knew <em>some</em> Chinese by the end of the year, and boy did I feel confident I’d mastered it, I quickly learned that I could still not really function
+in a totally Chinese environment.</p>
+
+<p>I realized that the classes taught me a little vocab and some basic grammars for a variety of situations, but not really the ones I was in day-to-day.
+How could I understand my Object Oriented Programming professor in Chinese when I had never heard technical terms?
+My thought process went something like: “<em>I’ve heard him say x a lot right now, it’s probably important. Let me look it up</em>”.
+This way I would mostly end up looking at new vocab words, and better yet words I was sure to encounter often.
+Next, when I heard these words again, I would pick up on the verb in the senctence to learn what was happening.
+Repeating this often (i.e. when I had the energy for it), I picked up more than a few math/CS words that I still use every once in a while.</p>
+
+<h2 id="do-not-think-you-suck">Do Not Think You Suck</h2>
+<p>Besides just general life advice, it’s especially important that you do not get discouraged when you make a mistake or feel lost.
+Negative thoughts about your intelligence or language abilities can really cause you to stop practicing.
+Next time you have an opportunity to speak, you’ll doubt yourself and stay quiet.</p>
+
+<p>The thing is, you <em>probably</em> will mess up something in whatever you say, but you also will not learn and get the feedback that you said something
+wrong.
+what I used to tell myself was “well, <em>I’m</em> the one putting myself out here, being vulnerable, and if others think that’s funny, that’s their problem.”
+This was usually a cope anyways, since people don’t really laugh at you for learning their own language, and I’ve tried to be patient with others learning 
+English or Spanish as well.
+I was never (to my face at least) laughed-at.
+Others will most likely understand your struggle somewhat and be polite, and if you’re lucky, they’ll correct you!</p>
+
+<p>Don’t let your memes be dreams.</p>
+
+<h2 id="learning-the-history-is-also-learning-the-language">Learning the History Is Also Learning the Language</h2>
+<p>One of my favorite ways of learning Chinese was when my teacher explained the history and origin of a word or character. 
+Since Chinese characters are pictorial, many of them look (or more accurately look<em>ed</em>) like what they represent.
+This means that there is an eureka moment whenever we “got” the character.</p>
+
+<p>This might be a Chinese-specific way of teaching, but I think there might be a way of making languages engaging
+for every language. 
+I think the association of a story, or a certain mental image when thinking about the character goes a long way when making languages exciting.
+Besides just the engaging nature of having those associations, when I learned this way I was also getting an entirely different <em>mindset</em>,
+namely that of the people that lived when these characters were standardized.</p>
+
+<p>To give a simple example, the character “閒” means leisure or idle. It is composed of the characters for “door” or “gate” 門 (men) and the character
+for “moon” 月(yue) . In the olden days, when people were done for the day they would sit in the entrance to their homes and watch the moon.
+Over time these two characters combined came to form the new character which means leisure.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>Learning a language is not easy at all, and doing it can be rewarding at many places. 
+It opens your mind and lets you understand so many more people’s way of thinking.
+Here, my goal was just to share some tips that guided me through the language learning experience, especially when living abroad.</p>]]></content><author><name></name></author><category term="personal" /><category term="languages" /><summary type="html"><![CDATA[It’s pretty crazy to think that when I landed in Taiwan I could not even say “thank you”, yet fast forward 6 years and I’m giving presentations in Chinese every week to my Taiwanese labmates.]]></summary></entry></feed>

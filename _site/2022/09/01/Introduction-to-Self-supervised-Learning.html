@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Introduction to Self Supervised Learning | Andres Ponce</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="Introduction to Self Supervised Learning" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Self-supervised learning can sound like a real mouthful! My family and friends have asked me many times what it is I actually do for my master’s degree, and I always struggled to come up with a simple answer; an answer that really captures the idea without getting too technical." />
+<meta property="og:description" content="Self-supervised learning can sound like a real mouthful! My family and friends have asked me many times what it is I actually do for my master’s degree, and I always struggled to come up with a simple answer; an answer that really captures the idea without getting too technical." />
+<link rel="canonical" href="http://localhost:4000/2022/09/01/Introduction-to-Self-supervised-Learning.html" />
+<meta property="og:url" content="http://localhost:4000/2022/09/01/Introduction-to-Self-supervised-Learning.html" />
+<meta property="og:site_name" content="Andres Ponce" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-09-01T11:09:12+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Introduction to Self Supervised Learning" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-09-01T11:09:12+00:00","datePublished":"2022-09-01T11:09:12+00:00","description":"Self-supervised learning can sound like a real mouthful! My family and friends have asked me many times what it is I actually do for my master’s degree, and I always struggled to come up with a simple answer; an answer that really captures the idea without getting too technical.","headline":"Introduction to Self Supervised Learning","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2022/09/01/Introduction-to-Self-supervised-Learning.html"},"url":"http://localhost:4000/2022/09/01/Introduction-to-Self-supervised-Learning.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Andres Ponce" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Andres Ponce</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Introduction to Self Supervised Learning</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2022-09-01T11:09:12+00:00" itemprop="datePublished">Sep 1, 2022
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Self-supervised learning can sound like a real mouthful!
+My family and friends have asked me many times what it is I actually do for 
+my master’s degree, and I always struggled to come up with a simple answer; 
+an answer that really captures the idea without getting too technical.</p>
+
+<p>In this post I would like to try to do just that.
+We’ll start by defining what <em>supervised</em> learning is, since <em>self</em>-supervised
+learning tries to work around the main limitations of supervised learning.</p>
+
+<h2 id="machine-learning">Machine Learning</h2>
+<p>First, it would be beneficial to know what we <em>mean</em> when we say machines “learn”.
+What is being learned exactly?
+Machine learning is rooted in how humans learn, when we are given a new task, our first
+guesses might be wildly inaccurate, yet with feedback we can quite quickly learn patterns
+and approaches to a problem.</p>
+
+<p>For example, let’s say we have two types of objects, blue and orange. 
+They are mostly different, but like in the image below, there might be some overlapping regions.
+Could we find a line that best splits the two groups of dots, that has the fewest errors?
+An error would be an orange dot that is in the blue region, and vice-versa.
+If we are given a new dot, and we don’t know if it’s blue or orange, we want the highest chance of being correct.</p>
+
+<p><img src="/assets/binary_classification.png" alt="Binary Classificaiton" title="Can we find a line that best separates blue and orange dots?" /></p>
+
+<p>If we are given an entirely different set of blue and orange dots, our line will look different, it will reflect 
+the best solution to <em>that</em> set of blue and orange dots.
+The solution we find for this specific problem will work with similar blue and orange dots.
+So, we have to “learn”, or figure out by adjusting, the line that leads to the best result on our specific problem.
+To learn in this case would mean to try and approximate the answer given our input data.</p>
+
+<p>I mentioned “adjusting” to find an answer.
+We first start with a random line, and measure how many points it gets wrong. 
+This first guess is probably pretty terrible, so we maybe tweak the slope, move it around, etc…
+Now, we might get fewer errors.
+How to adjust the line involves calculating some equations to figure out how wrong we are, but the main idea
+is that we can give ourselves an error, and we want the error to be as small as possible.</p>
+
+<h2 id="supervised-learning">Supervised Learning</h2>
+<p>You may have heard of computers “learning” how to recognize objects in images: tell cats apart from
+dogs or identify people in images.
+A more recent famous example of computers “learning” is <a href="https://openai.com/dall-e-2/">DALL$\cdot$E 2</a>, which can generate
+multiple high-resolution images from a single text prompt.</p>
+
+<p><img src="/assets/dalle2_example.png" alt="AI generated images" title="A computer 'learned' what this prompt might look like." /></p>
+
+<p>There’s many uses of machine learning, for this post we’ll focus on <strong>image classification</strong>, or trying to classify 
+the image depending what’s in the image.</p>
+
+<p>A machine learning <strong>model</strong> is a program that takes some input, say an image, and makes a decision about that input (e.g. classification), 
+similar to deciding if a dot is blue or orange in the example above.
+Our model first has to learn the ins and outs of the different types of data – what makes a dog a dog and a cat a cat?
+To learn these patterns, we have to show our model a lot of images and slightly tweak its “settings” every time, and through 
+some math (back-propagation), the model produces better and better guesses.</p>
+
+<p>For example, our model predicts that an image has a cat.
+We check the model’s predictions with the “correct answer” or label, and based on the correctness of our guess decide how we should
+adjust our model so it does better next time.
+We use an algorithm to decide how our model should tweak the settings used in making decisions (a.k.a. <strong>parameters</strong>) when comparing our
+model’s output and the correct label.</p>
+
+<p>What’s wrong with this approach then?
+Nothing inherently. 
+However, notice that we mentioned the “correct answer”, which we use to measure how our model is performing and deterimine how to adjust our model’s parameters.
+How do we get these? 
+The data we use to train our model will usually come with a bunch of inputs and their labels already prepared.
+Preparing labels for a dataset is usually a manual process, involving many man hours, since a human has to go through 
+all the data and give the correct answer for the computer to use.
+So some group will prepare a dataset, then many other people will use it to avoid the labelling costs.
+Nowadays, where bigger datasets are preferred, labelling is too expensive for many applications.</p>
+
+<h2 id="self-supervised-learning">Self-Supervised Learning</h2>
+<p><strong>Self-supervised learning</strong> tries to answer the question: <em>What if we could do the same things as in supervised learning
+without the labels?</em>
+However, instead of having the correct labels and comparing them to our model’s guess, we have to come up with some
+other <strong>task</strong> for our model to use in training.
+Instead of comparing our model’s output with the “answer key”, we can define some other
+metric, or other measures of how wrong our guesses are.</p>
+
+<p><img src="/assets/simclr.png" alt="simclr" title="If we change the same image in different ways to create two versions of it, we could tell our model that they should still be quite similar because they contain the same object." />
+There are plenty of other ways of training a model without relying on labels.
+A common approach is to take an image $x$, then produce two versions of the same image $\tilde{x}_i$
+and $\tilde{x}_j$.
+For example, we could alter the first image’s colors and crop the second image, or rotate one image
+and blur the other image.
+The idea is to have our model process and view the two images as similar as possible; at the end of 
+the day the <em>contents</em> of the image are the same, just presented in different ways.
+This way even if an image is distorted in different ways, our model can still learn what 
+patterns make up a dog or cat, a blue dot and an orange dot.
+This is one way we can reduce or even remove the need for labels.</p>
+
+<p>That’s the main essence of self-supervised learning.
+The practical use is when the data is too large or there are not enough resources to 
+neatly label the data.</p>
+
+<p>More recent models, especially larger models like DALL$\cdot$E 2 above, use some form of 
+self-supervision because of the sheer size of the data they use to train.
+Their model uses self-supervision to process the text prompt.
+During training, they will take a sentence and remove some of the words.
+The model is then asked to fill in the blank with the most likely word, taking in the
+context of the sentence.
+Self-supervision can be applied not only in vision, but also with text in different, but often
+similar ways.
+In recent years, self-supervised approaches have been proving their worth and sometimes surpassing
+supervised models in image classification, so the future for self-supervision is bright.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>In this post, I tried to introduce the idea of self-supervision as simply as I could.
+The field is currently seeing large adoption by major companies, the hope being that we can use
+ever larger models which require ever larger datasets without labelling costs.</p>
+
+
+  </div><a class="u-url" href="/2022/09/01/Introduction-to-Self-supervised-Learning.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Andres Ponce</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Andres Ponce</li><li><a class="u-email" href="mailto:andreseeponce@gmail.com">andreseeponce@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/andrew15818"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">andrew15818</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Honduran software engineer</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

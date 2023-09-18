@@ -1,8 +1,0 @@
-{{ if .Title }}
-<figure>
-	<img src="{{ .Destination | safeURL }}" alt="{{ .Text }}" style="max-width:480px;max-height:640px; text-align:center;">
-	<figcaption>{{ .Title }}</figcaption>
-</figure>
-{{ else }}
-	<img src="{{ .Destination | safeURL }}" alt="{{ .Text }}" style="max-width:480px;max-height:640px; text-align:center;">
-{{ end}}
