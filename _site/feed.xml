@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-09-18T23:05:47+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Andres Ponce</title><subtitle>Honduran software engineer</subtitle><entry><title type="html">Introduction to Self Supervised Learning</title><link href="http://localhost:4000/2022/09/01/Introduction-to-Self-supervised-Learning.html" rel="alternate" type="text/html" title="Introduction to Self Supervised Learning" /><published>2022-09-01T11:09:12+00:00</published><updated>2022-09-01T11:09:12+00:00</updated><id>http://localhost:4000/2022/09/01/Introduction-to-Self-supervised-Learning</id><content type="html" xml:base="http://localhost:4000/2022/09/01/Introduction-to-Self-supervised-Learning.html"><![CDATA[<p>Self-supervised learning can sound like a real mouthful!
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-10-26T14:45:21+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Andres Ponce</title><subtitle>Honduran software engineer</subtitle><entry><title type="html">Introduction to Self Supervised Learning</title><link href="http://localhost:4000/2022/09/01/Introduction-to-Self-supervised-Learning.html" rel="alternate" type="text/html" title="Introduction to Self Supervised Learning" /><published>2022-09-01T11:09:12+00:00</published><updated>2022-09-01T11:09:12+00:00</updated><id>http://localhost:4000/2022/09/01/Introduction-to-Self-supervised-Learning</id><content type="html" xml:base="http://localhost:4000/2022/09/01/Introduction-to-Self-supervised-Learning.html"><![CDATA[<p>Self-supervised learning can sound like a real mouthful!
 My family and friends have asked me many times what it is I actually do for 
 my master’s degree, and I always struggled to come up with a simple answer; 
 an answer that really captures the idea without getting too technical.</p>
@@ -38,7 +38,7 @@ is that we can give ourselves an error, and we want the error to be as small as 
 <h2 id="supervised-learning">Supervised Learning</h2>
 <p>You may have heard of computers “learning” how to recognize objects in images: tell cats apart from
 dogs or identify people in images.
-A more recent famous example of computers “learning” is <a href="https://openai.com/dall-e-2/">DALL$\cdot$E 2</a>, which can generate
+A more recent famous example of computers “learning” is <a href="https://openai.com/dall-e-2/">DALL\(\cdot\)E 2</a>, which can generate
 multiple high-resolution images from a single text prompt.</p>
 
 <p><img src="/assets/dalle2_example.png" alt="AI generated images" title="A computer 'learned' what this prompt might look like." /></p>
@@ -78,8 +78,8 @@ metric, or other measures of how wrong our guesses are.</p>
 
 <p><img src="/assets/simclr.png" alt="simclr" title="If we change the same image in different ways to create two versions of it, we could tell our model that they should still be quite similar because they contain the same object." />
 There are plenty of other ways of training a model without relying on labels.
-A common approach is to take an image $x$, then produce two versions of the same image $\tilde{x}_i$
-and $\tilde{x}_j$.
+A common approach is to take an image \(x\), then produce two versions of the same image \(\tilde{x}_i\)
+and \(\tilde{x}_j\).
 For example, we could alter the first image’s colors and crop the second image, or rotate one image
 and blur the other image.
 The idea is to have our model process and view the two images as similar as possible; at the end of 
@@ -92,7 +92,7 @@ This is one way we can reduce or even remove the need for labels.</p>
 The practical use is when the data is too large or there are not enough resources to 
 neatly label the data.</p>
 
-<p>More recent models, especially larger models like DALL$\cdot$E 2 above, use some form of 
+<p>More recent models, especially larger models like DALL\(\cdot\)E 2 above, use some form of 
 self-supervision because of the sheer size of the data they use to train.
 Their model uses self-supervision to process the text prompt.
 During training, they will take a sentence and remove some of the words.

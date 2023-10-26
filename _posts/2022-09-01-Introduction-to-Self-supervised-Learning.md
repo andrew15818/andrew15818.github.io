@@ -46,7 +46,7 @@ is that we can give ourselves an error, and we want the error to be as small as 
 ## Supervised Learning
 You may have heard of computers "learning" how to recognize objects in images: tell cats apart from
 dogs or identify people in images.
-A more recent famous example of computers "learning" is [DALL$\cdot$E 2](https://openai.com/dall-e-2/), which can generate
+A more recent famous example of computers "learning" is [DALL$$\cdot$$E 2](https://openai.com/dall-e-2/), which can generate
 multiple high-resolution images from a single text prompt.
 
 ![AI generated images](/assets/dalle2_example.png "A computer 'learned' what this prompt might look like.")
@@ -86,8 +86,8 @@ metric, or other measures of how wrong our guesses are.
 
 ![simclr](/assets/simclr.png "If we change the same image in different ways to create two versions of it, we could tell our model that they should still be quite similar because they contain the same object.")
 There are plenty of other ways of training a model without relying on labels.
-A common approach is to take an image $x$, then produce two versions of the same image $\tilde{x}\_i$
-and $\tilde{x}\_j$.
+A common approach is to take an image $$ x $$, then produce two versions of the same image $$\tilde{x}_i$$
+and $$\tilde{x}_j$$.
 For example, we could alter the first image's colors and crop the second image, or rotate one image
 and blur the other image.
 The idea is to have our model process and view the two images as similar as possible; at the end of 
@@ -100,7 +100,7 @@ That's the main essence of self-supervised learning.
 The practical use is when the data is too large or there are not enough resources to 
 neatly label the data.
 
-More recent models, especially larger models like DALL$\cdot$E 2 above, use some form of 
+More recent models, especially larger models like DALL$$\cdot$$E 2 above, use some form of 
 self-supervision because of the sheer size of the data they use to train.
 Their model uses self-supervision to process the text prompt.
 During training, they will take a sentence and remove some of the words.
