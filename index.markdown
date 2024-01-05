@@ -4,3 +4,11 @@
 
 layout: home
 ---
+# Hello There
+![Me](assets/me.jpg)
+
+My name is Andrés Ponce. I was born and grew up in Honduras and currently live and work in Taipei, Taiwan.
+I did my master's degree in computer science at National Cheng Kung University under Professor Kuo Yau Hwang (郭耀煌).
+I did my undergraduate degree at National Yang Ming Chiao Tung University.
+
+
