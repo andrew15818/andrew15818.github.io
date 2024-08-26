@@ -3,7 +3,7 @@
 # To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 layout: home
 ---
-# Hello There
+# Welcome to my site! 
 ![Me](assets/me.jpg)
 
 My name is Andrés Ponce. I was born and grew up in Honduras and currently live and work in Taipei, Taiwan.
