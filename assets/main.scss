@@ -1,0 +1,24 @@
+---
+---
+@import "minima";
+
+.image {
+  display: block;
+  margin-left: auto;
+  margin-right:auto;
+  margin-top: 10px;
+  max-height: 50vh;
+}
+
+.centered-poetry {
+  text-align: center;
+  margin: 0 auto;
+  max-width: 80%; /* Adjust as needed */
+  font-style: italic; /* Optional: gives a quote-like appearance */
+  color: grey;
+}
+
+.centered-poetry p {
+  margin: 0; /* Removes default paragraph margins */
+  line-height: 1.6; /* Adjust for desired spacing between lines */
+}
