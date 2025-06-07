@@ -2,6 +2,7 @@
 title: "Introduction to Self Supervised Learning"
 date: 2022-09-01T11:09:12Z
 mathjax: true
+math: katex
 layout: post
 tags: machine_learning, research, self-supervised
 ---
@@ -87,7 +88,7 @@ metric, or other measures of how wrong our guesses are.
 ![simclr](/assets/simclr.png "If we change the same image in different ways to create two versions of it, we could tell our model that they should still be quite similar because they contain the same object.")
 There are plenty of other ways of training a model without relying on labels.
 A common approach is to take an image $$ x $$, then produce two versions of the same image $$\tilde{x}_i$$
-and $$\tilde{x}_j$$.
+and $$ \tilde{x}_j $$.
 For example, we could alter the first image's colors and crop the second image, or rotate one image
 and blur the other image.
 The idea is to have our model process and view the two images as similar as possible; at the end of 
@@ -100,7 +101,7 @@ That's the main essence of self-supervised learning.
 The practical use is when the data is too large or there are not enough resources to 
 neatly label the data.
 
-More recent models, especially larger models like DALL$$\cdot$$E 2 above, use some form of 
+More recent models, especially larger models like DALL$\cdot$E 2 above, use some form of 
 self-supervision because of the sheer size of the data they use to train.
 Their model uses self-supervision to process the text prompt.
 During training, they will take a sentence and remove some of the words.

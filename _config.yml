@@ -32,8 +32,11 @@ plugins:
   - jekyll-remote-theme
 
 markdown: kramdown
-mathjax: true
+kramdown:
+  math_engine: mathjax
 syntax_highlighter: rouge
+header_pages:
+  - about.md
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
