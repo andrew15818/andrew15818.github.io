@@ -6,9 +6,21 @@ tags: reading, math
 draft: true
 math: katex
 ---
-Jorge Luis Borges' *Ficciones* contains many wonderful and cleverly imaginative short stories. Among the most famous is *The Library of Babel*, where he describes the universe as a seemingly infinite library made up of hexagonal floors. From the floor the narrator oversees, he can see floors going up and down indefinitely, with a staircase allowing travel to other floors. Four of the walls on each floor are filled with books, each book is **410 pages long**, each page with 40 lines, each line with **80 letters** taken out of an alphabet of **25 possible characters**. We're gonna work with the assumption that each book is unique. The question running through the story is: ***is the library actually infinite***?
+Can all knowledge imaginable be contained in books? Jorge Luis Borges' 1956 *Ficciones* contains many wonderful and imaginative short stories, steeped in mathematical language and themes. Among the most famous (and my personal favorite) is *The Library of Babel*, in which he envisions the universe as a giant library, made up of a series of hexagonal floors:
 
-The library in fact *isn't* infinite, and I'm going to attempt and derive the number of books.
+> The universe (which others call the Library) is composed of an indefinite, perhaps infinite number of hexagonal galleries...The Library is a sphere whose exact center is any hexagon and whose circumference is unattainable.
+
+Essentially, each floor is a hexagon covered with bookshelves, connected to the floors above and below by a seemingly endless staircase. Each hexagon is identical to each other: the walls have bookcases, each containing **32 books**, each with **410 pages**, each page with **40 lines**, each line with approximately **80 letters** composed of an alphabet of **25 letters**.
+
+Could the library be infinite? 
+
+\**drum roll please*\*
+
+No, it can't. In fact, it's brought up pretty early in the story:
+
+> ...the librarian deduced that the Library is "total"...and that its bookshelves contain all possible combinations of the twenty-two orthographic symbols...that is, all that is able to be expressed, in every language.
+
+However, can we calculate exactly how many books there are in the library?
 
 ## Combinations
 
