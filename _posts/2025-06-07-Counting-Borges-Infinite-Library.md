@@ -24,9 +24,10 @@ However, can we calculate exactly how many books there are in the library?
 
 ## Combinations
 
-Before we find out the possible number of unique books in the library, let's start with a simple example. Suppose we have only two letters "A" and "B".
-For a sequence (or *string*) of length 1, we have two possible combinations: A and B. For a string of length 2, the outcomes climb to 4: AA, BB, AB, and BA. In fact, the number of combinations of letters follows a pattern:
+Before we find out the possible number of unique books in the library, let's start with a simple example. Suppose our alphabet has only two letters: A and B.
+For a sequence (or *string*) of length 1, we have two possible combinations: A and B. For a string of length 2, the outcomes climb to 4: AA, BB, AB, and BA, as there are two options for each position in the string. 
 
+In fact, we can notice a pattern if we keep going:
 |Length|Combinations|
 |:----:|:----:|
 |1|2|
@@ -36,10 +37,9 @@ For a sequence (or *string*) of length 1, we have two possible combinations: A a
 |5|32|
 
 Following this pattern, the number of combinations will then be the number of choices we have for each letter or symbol (e.g. 2 in this example), raised to the power of the string length.
-For a sequence of length 100, we would have $2^{100}$ possible combinations.
+So, for a sequence of length 100, we would have $2^{100}$ possible combinations.
 
-We're given that there are 25 possible characters, so for each character we have 25 possible choices, meaning our answer will be $25^{x}$ for some $x$.
-Now, $x$ will be the length of the string, or the number of characters in the book. 
+We're given that there are 25 symbols in the alphabet, so for each position we have 25 possible choices instead of two, meaning our answer will be $25^{x}$ for some length $x$.
 From the constraints given in the story there will be $410\times 40\times 80 = 1,312,000$ characters in the book, meaning each book in the library is a unique ordering of length $1,312,000$ of the $25$ original symbols.
 
 Thus our answer is 
